@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>加载进度条</title>
+		<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+		<style>
+			.loading{width:0%;background-color:#9ACD32;height:100%;display:none;height:2px}
+		</style>
+	</head>
+	<body>
+		<div class="loading" id="loading"></div>
+		<script type="text/javascript">
+			//执行加载中,匀速加载到80,之后缓慢加载到90
+			function loading() {
+				$("#loading").show();
+				$("#loading").animate({
+					width: "80%"
+				}, 500, function() {
+					$("#loading").animate({
+						width: "90%"
+					}, 1000 * 10);
+				});
+			}
+
+			//执行加载完成,快速加载到100，逐渐隐藏
+			function loaded() {
+				$("#loading").stop(true);//停止loading的所有动画
+				$("#loading").animate({
+						width: "100%"
+					}, 400, function() {
+						$("#loading").animate({
+							opacity: "0"
+						}, 1000, function() {
+							$("#loading").hide();
+							$("#loading").css("opacity", "1");
+						});
+					});
+			}
+
+			window.ready = loading();
+			window.onload = loaded();
+		</script>
+	</body>
+</html>
